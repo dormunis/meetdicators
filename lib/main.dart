@@ -3,15 +3,9 @@ import 'availability_status_params.dart';
 
 void main() => runApp(MyApp());
 
-
-
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-//    return MaterialApp(
-//      title: 'Vacancy',
-//      home: Availability(),
-//    );
     return Container(
         decoration: BoxDecoration(color: Colors.redAccent),
         child: Availability());
@@ -23,6 +17,10 @@ enum AvailabilityStatus { vacant, startsSoon, occupied }
 class AvailabilityState extends State<Availability> {
   AvailabilityStatus _status = AvailabilityStatus.startsSoon;
 
+  void _buttonChange() {
+
+  }
+
   @override
   Widget build(BuildContext context) {
     var statusParams = _availabilityStatusText();
@@ -30,32 +28,23 @@ class AvailabilityState extends State<Availability> {
         decoration: BoxDecoration(color: statusParams.backgroundColor),
         child:
             Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+
           Container(
               padding: const EdgeInsets.all(100),
               child: Text(
                 statusParams.status,
                 textDirection: TextDirection.ltr,
-                style: TextStyle(
-                    fontSize: 58,
-                    color: Colors.black87,
-                    fontFamily: 'Khand',
-                    fontWeight: FontWeight.bold),
+                style: statusParams.textStyle
               )),
           Text(
             'Hello World',
             textDirection: TextDirection.ltr,
-            style: TextStyle(
-                fontSize: 32,
-                color: Colors.black87,
-                fontWeight: FontWeight.bold),
+            style: statusParams.textStyle
           ),
           Text(
             'Hello World',
             textDirection: TextDirection.ltr,
-            style: TextStyle(
-              fontSize: 32,
-              color: Colors.black87,
-            ),
+            style: statusParams.textStyle
           ),
         ]));
   }
