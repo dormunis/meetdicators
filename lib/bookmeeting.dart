@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:intl/intl.dart';
 
-
 class BookMeeting extends StatefulWidget {
   BookMeeting({Key key, this.title}) : super(key: key);
 
@@ -50,7 +49,7 @@ class _BookMeetingState extends State<BookMeeting> {
         currentDateTime = _snapDateTime(now.add(Duration(minutes: i * _snap)));
       }
       String formattedDateTime =
-      DateFormat(_sliderLabelFormat).format(currentDateTime);
+          DateFormat(_sliderLabelFormat).format(currentDateTime);
       hatching[i] = Expanded(
         child: SizedBox(
           child: Text(formattedDateTime,
@@ -80,47 +79,40 @@ class _BookMeetingState extends State<BookMeeting> {
     } else if (datetime.minute < 55) {
       timeToAdd = Duration(minutes: 60 - datetime.minute);
     } else if (datetime.minute < 60) {
-      timeToAdd = Duration(hours: 1, minutes: 60 - datetime.minute);
+      timeToAdd = Duration(hours: 1, minutes: 15 - (60 - datetime.minute));
     }
     return datetime.add(timeToAdd);
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Row(
-              children: <Widget>[
-                Expanded(
-                  child: SizedBox(
-                    child: Slider(
-                      activeColor: Colors.indigoAccent,
-                      min: 0.0,
-                      max: _maximumMeetingTimeInMinutes,
-                      divisions: _sliderDivisions.floor(),
-                      label: "$_sliderLabel",
-                      onChanged: (newValue) {
-                        setState(() {
-                          double snappedValue = _snapValue(newValue);
-                          _sliderValue = snappedValue;
-                          _setSliderLabel(snappedValue);
-                        });
-                      },
-                      value: _sliderValue,
-                    ),
-                  ),
-                ),
-              ],
+    return Column(children: <Widget>[
+      Row(
+        children: <Widget>[
+          Expanded(
+            child: SizedBox(
+              child: Slider(
+                activeColor: Colors.indigoAccent,
+                min: 0.0,
+                max: _maximumMeetingTimeInMinutes,
+                divisions: _sliderDivisions.floor(),
+                label: "$_sliderLabel",
+                onChanged: (newValue) {
+                  setState(() {
+                    double snappedValue = _snapValue(newValue);
+                    _sliderValue = snappedValue;
+                    _setSliderLabel(snappedValue);
+                  });
+                },
+                value: _sliderValue,
+              ),
             ),
-            Row(
-              children: _createHatching(),
-            )
-          ],
-        ),
+          ),
+        ],
       ),
-    );
+      Row(
+        children: _createHatching(),
+      )
+    ]);
   }
 }
