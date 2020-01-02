@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:occupied_room/next_meetings.dart';
 import 'availability_status_params.dart';
 
 void main() => runApp(MyApp());
@@ -15,7 +16,7 @@ class MyApp extends StatelessWidget {
 enum AvailabilityStatus { vacant, startsSoon, occupied }
 
 class AvailabilityState extends State<Availability> {
-  AvailabilityStatus _status = AvailabilityStatus.vacant;
+  AvailabilityStatus _status = AvailabilityStatus.occupied;
 
   void _buttonChange() {
 
@@ -37,11 +38,7 @@ class AvailabilityState extends State<Availability> {
                 style: statusParams.textStyle
               )),
           statusParams.getAction(),
-          Text(
-            'Hello World',
-            textDirection: TextDirection.ltr,
-            style: statusParams.textStyle
-          ),
+          NextMeetingsWidget(),
         ]));
   }
 
