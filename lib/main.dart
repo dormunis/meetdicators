@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:occupied_room/vacant.dart';
 import '_availability_status_params.dart';
-import 'next_meetings.dart';
+import 'next_meetings_swiper.dart';
 import 'occupied.dart';
 
 void main() => runApp(MyApp());
@@ -31,17 +31,15 @@ class AvailabilityState extends State<Availability> {
     return Container(
         decoration: BoxDecoration(color: statusParams.backgroundColor),
         child:
-            Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-
+            Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
           Container(
               padding: const EdgeInsets.all(100),
-              child: Text(
-                statusParams.status,
-                textDirection: TextDirection.ltr,
-                style: statusParams.textStyle
-              )),
+              child: Text(statusParams.status,
+                  textDirection: TextDirection.ltr,
+                  style: statusParams.textStyle)),
           statusParams.getAction(),
-          NextMeetingsWidget(),
+                  NextMeetingsSwiper(),
         ]));
   }
 

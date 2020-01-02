@@ -15,7 +15,7 @@ class NextMeetingsWidgetState extends State<NextMeetingsWidget> {
     return Container(
         decoration: BoxDecoration(color: Colors.grey),
         margin: EdgeInsets.fromLTRB(100.0, 0, 100, 0),
-        child: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+        child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
           Text(
             "Hello World!!",
             textDirection: TextDirection.ltr,
