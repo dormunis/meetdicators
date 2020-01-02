@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:occupied_room/vacant.dart';
 import '_availability_status_params.dart';
-import 'next_meetings_swiper.dart';
+import 'next_meetings.dart';
 import 'occupied.dart';
 
 void main() => runApp(MyApp());
@@ -10,14 +10,19 @@ void main() => runApp(MyApp());
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.landscapeRight,
-      DeviceOrientation.landscapeLeft,
-    ]);
-    return Container(
-        decoration: BoxDecoration(color: Colors.redAccent),
-        child: Availability());
-  }
+//    SystemChrome.setPreferredOrientations([
+//      DeviceOrientation.landscapeRight,
+//      DeviceOrientation.landscapeLeft,
+//    ]);
+    return MaterialApp(
+        title: 'Flutter layout demo',
+
+        home: Scaffold(
+          body: SizedBox.expand(
+            child: Availability(),
+          ),
+        ),
+    ); }
 }
 
 enum AvailabilityStatus { vacant, occupied }
@@ -39,7 +44,7 @@ class AvailabilityState extends State<Availability> {
                   textDirection: TextDirection.ltr,
                   style: statusParams.textStyle)),
           statusParams.getAction(),
-                  NextMeetingsSwiper(),
+                  NextMeetingsWidget(),
         ]));
   }
 

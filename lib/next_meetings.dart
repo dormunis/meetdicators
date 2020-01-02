@@ -15,17 +15,28 @@ class NextMeetingsWidgetState extends State<NextMeetingsWidget> {
     return Container(
         decoration: BoxDecoration(color: Colors.grey),
         margin: EdgeInsets.fromLTRB(100.0, 0, 100, 0),
-        child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-          Text(
-            "Hello World!!",
-            textDirection: TextDirection.ltr,
-            style: TextStyle(
-                fontSize: 80,
-                color: Colors.black87,
-                fontFamily: 'Khand',
-                fontWeight: FontWeight.bold),
-          ),
-        ]));
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Padding(
+              padding: EdgeInsets.all(10.0),
+            ),
+            Icon(Icons.favorite, color: Colors.pink),
+            Container(
+              margin: const EdgeInsets.only(top: 8.0),
+              child: Text(
+                  'bla',
+                  style: TextStyle(
+                    fontSize: 14.0,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                  )
+              ),
+            )
+          ],
+        )
+    ); //);
   }
 }
 
