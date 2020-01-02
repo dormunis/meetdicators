@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:occupied_room/next_meetings.dart';
 import 'availability_status_params.dart';
 
@@ -7,6 +8,10 @@ void main() => runApp(MyApp());
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.landscapeRight,
+      DeviceOrientation.landscapeLeft,
+    ]);
     return Container(
         decoration: BoxDecoration(color: Colors.redAccent),
         child: Availability());
