@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
 enum AvailabilityStatus { vacant, startsSoon, occupied }
 
 class AvailabilityState extends State<Availability> {
-  AvailabilityStatus _status = AvailabilityStatus.startsSoon;
+  AvailabilityStatus _status = AvailabilityStatus.vacant;
 
   void _buttonChange() {
 
@@ -36,11 +36,7 @@ class AvailabilityState extends State<Availability> {
                 textDirection: TextDirection.ltr,
                 style: statusParams.textStyle
               )),
-          Text(
-            'Hello World',
-            textDirection: TextDirection.ltr,
-            style: statusParams.textStyle
-          ),
+          statusParams.getAction(),
           Text(
             'Hello World',
             textDirection: TextDirection.ltr,
