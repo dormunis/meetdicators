@@ -30,37 +30,31 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+  bool _occupied = false;
 
-  void _incrementCounter() {
+  void _toggleOccupied() {
     setState(() {
-      _counter++;
+      _occupied = !_occupied;
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
+               _occupied ? 'Room Occupied' : 'Room is free and happy',
               style: Theme.of(context).textTheme.display1,
             ),
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
+        onPressed: _toggleOccupied,
+        tooltip: 'Toggle Occupy',
         child: Icon(Icons.add),
       ),
     );
