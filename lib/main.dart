@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:occupied_room/next_meetings.dart';
-import 'availability_status_params.dart';
+import 'package:occupied_room/vacant.dart';
+import '_availability_status_params.dart';
+import 'next_meetings.dart';
+import 'occupied.dart';
 
 void main() => runApp(MyApp());
 
@@ -18,14 +20,10 @@ class MyApp extends StatelessWidget {
   }
 }
 
-enum AvailabilityStatus { vacant, startsSoon, occupied }
+enum AvailabilityStatus { vacant, occupied }
 
 class AvailabilityState extends State<Availability> {
   AvailabilityStatus _status = AvailabilityStatus.occupied;
-
-  void _buttonChange() {
-
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -50,8 +48,6 @@ class AvailabilityState extends State<Availability> {
   AvailabilityStatusParams _availabilityStatusText() {
     if (_status == AvailabilityStatus.vacant)
       return Vacant();
-    else if (_status == AvailabilityStatus.startsSoon)
-      return StartsSoon();
     else
       return Occupied();
   }
