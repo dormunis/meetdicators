@@ -71,15 +71,15 @@ class _BookMeetingState extends State<BookMeeting> {
   DateTime _snapDateTime(DateTime datetime) {
     Duration timeToAdd;
     if (datetime.minute < 10) {
-      timeToAdd = Duration(minutes: 15 - datetime.minute);
+      timeToAdd = Duration(minutes: - datetime.minute);
     } else if (datetime.minute < 25) {
-      timeToAdd = Duration(minutes: 30 - datetime.minute);
+      timeToAdd = Duration(minutes: 15 - datetime.minute);
     } else if (datetime.minute < 40) {
-      timeToAdd = Duration(minutes: 45 - datetime.minute);
+      timeToAdd = Duration(minutes: 30 - datetime.minute);
     } else if (datetime.minute < 55) {
-      timeToAdd = Duration(minutes: 60 - datetime.minute);
+      timeToAdd = Duration(minutes: 45 - datetime.minute);
     } else if (datetime.minute < 60) {
-      timeToAdd = Duration(hours: 1, minutes: 15 - (60 - datetime.minute));
+      timeToAdd = Duration(hours: 1, minutes: - (60 - datetime.minute));
     }
     return datetime.add(timeToAdd);
   }
