@@ -359,3 +359,5 @@ pubspec.lock  // Except for application packages
 
 .service-account.json
 calendar-ids.json
+.flutter-plugins
+.flutter-plugins-dependencies
