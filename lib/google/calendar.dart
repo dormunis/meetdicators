@@ -14,19 +14,16 @@ const _SCOPES = const [
   CalendarApi.CalendarSettingsReadonlyScope,
 ];
 
-Future<Object> _upcomingEvents(httpClient, room) async {
+Future<Object> _upcomingEvents(httpClient, room, limit, start, end) async {
   var calendar = new CalendarApi(httpClient);
-  final DateTime now = DateTime.now().toUtc();
-  final DateTime tomorrow =
-  DateTime(now.year, now.month, now.day + 1).toUtc();
   return calendar.events.list(
     room,
-    maxResults: _maxEventResults,
+    maxResults: limit,
     timeZone: "UTC",
     singleEvents: true,
     orderBy: "startTime",
-    timeMin: now,
-//            timeMax: tomorrow
+    timeMin: start,
+    timeMax: end,
   );
 }
 
@@ -55,21 +52,40 @@ Future<String> _readAsset(String path) async {
 }
 
 Future<List> getCalendarEvents(room) async {
-  final _calendarIds = json.decode(await _readAsset('assets/google/calendar-ids.json'));
-  final _credentialsContents = json.decode(await _readAsset('assets/google/.service-account.json'));
-  final _credentials = new ServiceAccountCredentials.fromJson(_credentialsContents);
+  final _calendarIds =
+      json.decode(await _readAsset('assets/google/calendar-ids.json'));
+  final _credentialsContents =
+      json.decode(await _readAsset('assets/google/.service-account.json'));
+  final _credentials =
+      new ServiceAccountCredentials.fromJson(_credentialsContents);
   var httpClient = await clientViaServiceAccount(_credentials, _SCOPES);
-  var rawEvents = await _upcomingEvents(httpClient, _calendarIds[room]);
+  final DateTime now = DateTime.now().toUtc();
+  final DateTime tomorrow = DateTime(now.year, now.month, now.day + 5).toUtc();
+  var rawEvents = await _upcomingEvents(
+      httpClient, _calendarIds[room], _maxEventResults, now, tomorrow);
   return await _parseEvents(rawEvents);
 }
 
 Future getCurrentMeeting(room) async {
-
+  final _calendarIds =
+      json.decode(await _readAsset('assets/google/calendar-ids.json'));
+  final _credentialsContents =
+      json.decode(await _readAsset('assets/google/.service-account.json'));
+  final _credentials =
+      new ServiceAccountCredentials.fromJson(_credentialsContents);
+  var httpClient = await clientViaServiceAccount(_credentials, _SCOPES);
+  final DateTime now = DateTime.now().toUtc();
+  final DateTime later = now.add(Duration(hours:2));
+  var rawEvents =
+      await _upcomingEvents(httpClient, _calendarIds[room], 1, now, later);
+  List events = await _parseEvents(rawEvents);
+  if (events.isNotEmpty) {
+    return events[0]['start'].isBefore(now) ? events[0] : null;
+  }
+  return null;
 }
 
-Future<void> postEvent(String room, DateTime endTime) async {
-}
-
+Future<void> postEvent(String room, DateTime endTime) async {}
 
 Future<void> main() async {
   List events = await getCalendarEvents('einstein');

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-//import 'package:occupied_room/vacant.dart';
+import 'package:occupied_room/vacant.dart';
 import 'package:occupied_room/occupied.dart';
+
+import 'google/calendar.dart';
 
 
 void main() => runApp(MyApp());
@@ -13,17 +15,49 @@ class MyApp extends StatelessWidget {
       DeviceOrientation.landscapeRight,
       DeviceOrientation.landscapeLeft,
     ]);
-//    Vacant vacant = Vacant();
-    Occupied occupied = Occupied();
     return MaterialApp(
       title: 'Meetdicators',
       theme: ThemeData(fontFamily: 'Khand'),
-      home: Scaffold(
-//        backgroundColor: vacant.background,
-//        body: vacant,
-        backgroundColor: occupied.background,
-        body: occupied,
-      ),
+      home: Home(),
+    );
+  }
+}
+
+class Home extends StatefulWidget {
+  @override
+  _HomeState createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+
+  var _event;
+
+  Future<void> getRoomAvailability() async {
+    _event = await getCurrentMeeting('einstein');
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder<Object>(
+      future: getRoomAvailability(),
+      builder: (BuildContext context, AsyncSnapshot<Object> snapshot) {
+        switch (snapshot.connectionState) {
+          case ConnectionState.none:
+            return new Text('Press button to start');
+          case ConnectionState.waiting:
+            return new Text('Awaiting results from Meeting API...');
+          default:
+            if (snapshot.hasError)
+              return new Text('Error: ${snapshot.error}');
+            else {
+              if (_event != null) {
+                return Occupied();
+              } else {
+                return Vacant();
+              }
+            }
+        }
+      },
     );
   }
 }
