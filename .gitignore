@@ -356,3 +356,6 @@ build/
 pubspec.lock  // Except for application packages
 
 .idea
+
+.service-account.json
+calendar-ids.json

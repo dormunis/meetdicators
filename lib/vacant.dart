@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'bookmeeting.dart';
-import 'currentmeeting.dart';
+import 'package:occupied_room/viewcomponents/bookmeeting.dart';
+import 'package:occupied_room/viewcomponents/currentmeeting.dart';
 
 class Vacant extends StatefulWidget {
   Color background = const Color(0xff00e1c9);

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'currentmeeting.dart';
+import 'package:occupied_room/viewcomponents/currentmeeting.dart';
 
 class Occupied extends StatefulWidget {
   Color background = const Color(0xfff7635e);
