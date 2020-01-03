@@ -51,7 +51,7 @@ class _HomeState extends State<Home> {
               return new Text('Error: ${snapshot.error}');
             else {
               if (_event != null) {
-                return Occupied();
+                return Occupied(event: _event);
               } else {
                 return Vacant();
               }

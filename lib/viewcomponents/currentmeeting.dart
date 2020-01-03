@@ -13,7 +13,7 @@ class _CurrentMeetingState extends State<CurrentMeeting> {
   static String _dateTimeFormat = "HH:mm";
 
   Future<void> populateEvents() async {
-    _events = (await getCalendarEvents('einstein')).sublist(0);
+    _events = (await getCalendarEvents('einstein')).sublist(1);
   }
 
   Container generateEventView(event) {

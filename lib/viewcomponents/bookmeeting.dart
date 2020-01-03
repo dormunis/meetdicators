@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:intl/intl.dart';
+import 'package:occupied_room/google/calendar.dart';
 
 class BookMeeting extends StatefulWidget {
   BookMeeting({Key key, this.title}) : super(key: key);
@@ -71,7 +72,7 @@ class _BookMeetingState extends State<BookMeeting> {
   DateTime _snapDateTime(DateTime datetime) {
     Duration timeToAdd;
     if (datetime.minute < 10) {
-      timeToAdd = Duration(minutes: - datetime.minute);
+      timeToAdd = Duration(minutes: -datetime.minute);
     } else if (datetime.minute < 25) {
       timeToAdd = Duration(minutes: 15 - datetime.minute);
     } else if (datetime.minute < 40) {
@@ -79,9 +80,16 @@ class _BookMeetingState extends State<BookMeeting> {
     } else if (datetime.minute < 55) {
       timeToAdd = Duration(minutes: 45 - datetime.minute);
     } else if (datetime.minute < 60) {
-      timeToAdd = Duration(hours: 1, minutes: - (60 - datetime.minute));
+      timeToAdd = Duration(hours: 1, minutes: -(60 - datetime.minute));
     }
-    return datetime.add(timeToAdd);
+    DateTime rawTime = datetime.add(timeToAdd);
+    return DateTime(rawTime.year, rawTime.month, rawTime.day, rawTime.hour, rawTime.minute);
+  }
+
+  Future<void> bookRoom() async {
+    DateTime now = DateTime.now();
+    DateTime end = _snapDateTime(now.add(Duration(minutes: _sliderValue.round())));
+    await pushMeeting('einstein', DateTime.now(), end);
   }
 
   @override
@@ -112,7 +120,28 @@ class _BookMeetingState extends State<BookMeeting> {
       ),
       Row(
         children: _createHatching(),
-      )
+      ),
+      Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
+        RaisedButton(
+          onPressed: () {
+            FutureBuilder<void>(
+              future: bookRoom(),
+              builder: (BuildContext context, AsyncSnapshot<void> snapshot) {
+                switch (snapshot.connectionState) {
+                  default:
+                    if (snapshot.hasError)
+                      return new Text('Error: ${snapshot.error}');
+                    else {
+                      print('Room booked');
+                    }
+                }
+              },
+            );
+          },
+          color: const Color(0xff3f515e),
+          child: Text('BOOK ROOM', style: TextStyle(fontSize: 40)),
+        )
+      ]),
     ]);
   }
 }
