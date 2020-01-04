@@ -14,6 +14,29 @@ class CurrentMeeting extends StatefulWidget {
 class _CurrentMeetingState extends State<CurrentMeeting> {
   static String _dateTimeFormat = "HH:mm";
 
+  Row generateEventTime(event) {
+    if (event.containsKey('start') && event.containsKey('end')) {
+      return Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text(
+              DateFormat(_dateTimeFormat).format(event['start']),
+              style: TextStyle(color: Colors.white, fontSize: 24),
+            ),
+            Text(
+              "-",
+              style: TextStyle(color: Colors.white, fontSize: 24),
+            ),
+            Text(
+              DateFormat(_dateTimeFormat).format(event['end']),
+              style: TextStyle(color: Colors.white, fontSize: 24),
+            )
+          ]);
+    } else {
+      return Row();
+    }
+  }
+
   Container generateEventView(event) {
     return Container(
       child: Row(
@@ -31,22 +54,7 @@ class _CurrentMeetingState extends State<CurrentMeeting> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Text(
-                        DateFormat(_dateTimeFormat).format(event['start']),
-                        style: TextStyle(color: Colors.white, fontSize: 24),
-                      ),
-                      Text(
-                        "-",
-                        style: TextStyle(color: Colors.white, fontSize: 24),
-                      ),
-                      Text(
-                        DateFormat(_dateTimeFormat).format(event['end']),
-                        style: TextStyle(color: Colors.white, fontSize: 24),
-                      )
-                    ])
+                generateEventTime(event)
               ],
             ),
           )
@@ -59,7 +67,7 @@ class _CurrentMeetingState extends State<CurrentMeeting> {
     if (widget.events != null) {
       return widget.events;
     }
-    return [{"title": "no meetings set", "start": DateTime.now(), "end": DateTime.now()}];
+    return [{"title": "Loading meetings..."}];
   }
 
   @override
