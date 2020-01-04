@@ -17,9 +17,9 @@ class _BookMeetingState extends State<BookMeeting> {
 
   static int _snap = 15;
   static double _minimumMeetingTimeInMinutes = _snap * 1.0;
-  static double _maximumMeetingTimeInMinutes = _snap * 4.0;
+  static double _maximumMeetingTimeInMinutes = _snap * 6.0;
 
-  static double _startingNewMeetingDurationInMinutes = _snap * 1.0;
+  static double _startingNewMeetingDurationInMinutes = _snap * 2.0;
   static double _sliderDivisions =
       _maximumMeetingTimeInMinutes / _minimumMeetingTimeInMinutes;
 

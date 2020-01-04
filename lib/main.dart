@@ -39,7 +39,7 @@ class _HomeState extends State<Home> {
   }
 
   bool isRoomOccupied() {
-    return _events.isNotEmpty && _events[0]['start'].isBefore(DateTime.now());
+    return _events.isNotEmpty && _events[0]['start'].isBefore(DateTime.now().add(Duration(minutes: 5)));
   }
 
   Future _update(Timer t) async {
