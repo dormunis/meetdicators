@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -17,6 +19,14 @@ class _OccupiedState extends State<Occupied> {
   static String _dateFormat = "HH:mm";
   var _currentEvent;
 
+  static final List<String> _titles = [
+    "Nope",
+    "Denied",
+    "You shall not pass",
+    "Boohoo"
+  ];
+  final String title = _titles[Random().nextInt(_titles.length)];
+
   @override
   void initState() {
     _currentEvent = widget.events[0];
@@ -34,7 +44,6 @@ class _OccupiedState extends State<Occupied> {
     List<Widget> attendees = [];
     for (var attendee in _currentEvent['attendees']) {
       attendees.add(Container(
-        width: MediaQuery.of(context).size.width * 0.25,
         child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -68,7 +77,7 @@ class _OccupiedState extends State<Occupied> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Text(
-                    "Nope",
+                    title,
                     style: TextStyle(
                         color: const Color(0xff3f515e),
                         fontWeight: FontWeight.bold,
@@ -112,7 +121,7 @@ class _OccupiedState extends State<Occupied> {
                 enableInfiniteScroll: false,
                 initialPage: (attendees.length / 2).floor(),
                 scrollDirection: Axis.horizontal,
-                viewportFraction: 0.25,
+                viewportFraction: 0.33,
               ),
             ),
             Container(
