@@ -43,17 +43,11 @@ class _CurrentMeetingState extends State<CurrentMeeting> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Expanded(
-              child: Column(children: <Widget>[
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Text(
+              child: Text(
                   event['title'],
                   style: TextStyle(color: Colors.white, fontSize: 18),
                 )
-              ],
-            )
-          ])),
+          ),
           Expanded(
             child: Column(
               children: <Widget>[Expanded(child: generateEventTime(event))],
@@ -80,6 +74,7 @@ class _CurrentMeetingState extends State<CurrentMeeting> {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
         Container(
+          width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height * 0.15,
           child: Row(
               mainAxisAlignment: MainAxisAlignment.center,

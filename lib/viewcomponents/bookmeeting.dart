@@ -148,7 +148,8 @@ class _BookMeetingState extends State<BookMeeting> {
         ),
       ),
       Container(
-          height: MediaQuery.of(context).size.height * 0.15,
+          height: MediaQuery.of(context).size.height * 0.25,
+          width: MediaQuery.of(context).size.width,
           child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -172,7 +173,7 @@ class _BookMeetingState extends State<BookMeeting> {
                   },
                   color: const Color(0xff3f515e),
                   child: Text('BOOK ROOM',
-                      style: TextStyle(color: Colors.white, fontSize: 40)),
+                      style: TextStyle(color: Colors.white, fontSize: 36)),
                 )
               ])),
     ]);
