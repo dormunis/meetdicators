@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:meetdicators/viewcomponents/bookmeeting.dart';
 import 'package:meetdicators/viewcomponents/nextmeetings.dart';
@@ -5,7 +6,7 @@ import 'package:meetdicators/viewcomponents/nextmeetings.dart';
 class Vacant extends StatefulWidget {
   final events;
 
-  Vacant({Key key, @required this.events}) : super(key:key);
+  Vacant({Key key, @required this.events}) : super(key: key);
 
   @override
   _VacantState createState() => _VacantState();
@@ -13,6 +14,13 @@ class Vacant extends StatefulWidget {
 
 class _VacantState extends State<Vacant> {
   Color background = const Color(0xff00e1c9);
+  static final List<String> _titles = [
+    "Go on in",
+    "You shall pass",
+    "Yeah okay",
+    "Go for it"
+  ];
+  final String title = _titles[Random().nextInt(_titles.length)];
 
   BookMeeting bookMeetingInstance() {
     if (widget.events != null) {
@@ -39,7 +47,7 @@ class _VacantState extends State<Vacant> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Text(
-                      "Go on in",
+                      title,
                       style: TextStyle(
                           color: const Color(0xff3f515e),
                           fontWeight: FontWeight.bold,
@@ -50,8 +58,7 @@ class _VacantState extends State<Vacant> {
               ),
               Container(
                   height: MediaQuery.of(context).size.height * 0.4,
-                  child: bookMeetingInstance()
-              ),
+                  child: bookMeetingInstance()),
               NextMeetings(events: widget.events)
             ],
           ),
