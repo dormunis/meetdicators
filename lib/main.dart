@@ -50,7 +50,7 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
 
-    new Timer.periodic(new Duration(seconds:45), _update);
+    new Timer.periodic(new Duration(seconds:30), _update);
 
     return FutureBuilder<Object>(
       future: getRoomAvailability(),

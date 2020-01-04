@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:meetdicators/viewcomponents/bookmeeting.dart';
-import 'package:meetdicators/viewcomponents/currentmeeting.dart';
+import 'package:meetdicators/viewcomponents/nextmeetings.dart';
 
 class Vacant extends StatefulWidget {
   final events;
@@ -52,7 +52,7 @@ class _VacantState extends State<Vacant> {
                   height: MediaQuery.of(context).size.height * 0.4,
                   child: bookMeetingInstance()
               ),
-              CurrentMeeting(events: widget.events)
+              NextMeetings(events: widget.events)
             ],
           ),
         )));

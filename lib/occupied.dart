@@ -1,6 +1,7 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:meetdicators/viewcomponents/currentmeeting.dart';
+import 'package:meetdicators/viewcomponents/nextmeetings.dart';
 
 class Occupied extends StatefulWidget {
   final events;
@@ -29,16 +30,21 @@ class _OccupiedState extends State<Occupied> {
     return rawName.split('.').map((name) => capitalize(name)).join(" ");
   }
 
-  List<Widget> generateAttendeesListView() {
+  List<Widget> generateAttendees() {
     List<Widget> attendees = [];
     for (var attendee in _currentEvent['attendees']) {
       attendees.add(Container(
-        width: MediaQuery.of(context).size.width * 0.2,
-        child: Text(
-          convertEmailToName(attendee),
-          textAlign: TextAlign.center,
-          style: TextStyle(color: Colors.white, fontSize: 32),
-        ),
+        width: MediaQuery.of(context).size.width * 0.25,
+        child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Text(
+                convertEmailToName(attendee),
+                textAlign: TextAlign.center,
+                style: TextStyle(color: Colors.white, fontSize: 32),
+              )
+            ]),
       ));
     }
     return attendees;
@@ -46,6 +52,7 @@ class _OccupiedState extends State<Occupied> {
 
   @override
   Widget build(BuildContext context) {
+    List attendees = generateAttendees();
     return Scaffold(
       backgroundColor: background,
       body: SingleChildScrollView(
@@ -77,37 +84,40 @@ class _OccupiedState extends State<Occupied> {
                   children: <Widget>[
                     Expanded(
                         child: Text(
-                          _currentEvent['title'],
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              color: const Color(0xff3f515e),
-                              fontWeight: FontWeight.bold,
-                              fontSize: 42),
-                        )),
+                      _currentEvent['title'],
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          color: const Color(0xff3f515e),
+                          fontWeight: FontWeight.bold,
+                          fontSize: 42),
+                    )),
                     Expanded(
                         child: Text(
-                          "${DateFormat(_dateFormat).format(_currentEvent['start'])} - ${DateFormat(_dateFormat).format(_currentEvent['end'])}",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              color: const Color(0xff3f515e), fontSize: 32),
-                        )),
+                      "${DateFormat(_dateFormat).format(_currentEvent['start'])} - ${DateFormat(_dateFormat).format(_currentEvent['end'])}",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          color: const Color(0xff3f515e), fontSize: 32),
+                    )),
                   ]),
             ),
             Container(
               color: const Color(0xff3f515e),
               height: MediaQuery.of(context).size.height * 0.15,
+              width: MediaQuery.of(context).size.width,
               padding: EdgeInsets.symmetric(
                   horizontal: MediaQuery.of(context).size.width * 0.05),
-              child: ListView(
-                // This next line does the trick.
+              child: CarouselSlider(
+                enlargeCenterPage: true,
+                items: attendees,
+                enableInfiniteScroll: false,
+                initialPage: (attendees.length / 2).floor(),
                 scrollDirection: Axis.horizontal,
-                children: generateAttendeesListView(),
+                viewportFraction: 0.25,
               ),
             ),
             Container(
                 height: MediaQuery.of(context).size.height * 0.3,
-                child:CurrentMeeting(events: widget.events.sublist(1))
-            ),
+                child: NextMeetings(events: widget.events.sublist(1))),
           ],
         ),
       )),

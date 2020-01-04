@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
-class CurrentMeeting extends StatefulWidget {
+class NextMeetings extends StatefulWidget {
   final events;
 
-  CurrentMeeting({Key key, @required this.events}) : super(key: key);
+  NextMeetings({Key key, @required this.events}) : super(key: key);
 
   @override
-  _CurrentMeetingState createState() => _CurrentMeetingState();
+  _NextMeetingsState createState() => _NextMeetingsState();
 }
 
-class _CurrentMeetingState extends State<CurrentMeeting> {
+class _NextMeetingsState extends State<NextMeetings> {
   static String _dateTimeFormat = "HH:mm";
 
   Row generateEventTime(event) {
@@ -43,11 +43,14 @@ class _CurrentMeetingState extends State<CurrentMeeting> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Expanded(
-              child: Text(
+              child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                Text(
                   event['title'],
-                  style: TextStyle(color: Colors.white, fontSize: 18),
+                  style: TextStyle(color: Colors.white, fontSize: 24),
                 )
-          ),
+              ])),
           Expanded(
             child: Column(
               children: <Widget>[Expanded(child: generateEventTime(event))],
@@ -74,8 +77,10 @@ class _CurrentMeetingState extends State<CurrentMeeting> {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
         Container(
-          width: MediaQuery.of(context).size.width,
+          width: MediaQuery.of(context).size.width * 0.95,
           height: MediaQuery.of(context).size.height * 0.15,
+          padding: EdgeInsets.symmetric(
+              horizontal: MediaQuery.of(context).size.width * 0.05),
           child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
@@ -92,7 +97,10 @@ class _CurrentMeetingState extends State<CurrentMeeting> {
             color: const Color(0xff3f515e),
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height * 0.15,
+            padding: EdgeInsets.symmetric(
+                horizontal: MediaQuery.of(context).size.width * 0.05),
             child: CarouselSlider(
+                viewportFraction: 1.0,
                 enableInfiniteScroll: false,
                 items: getEvents().map((event) {
                   return generateEventView(event);
