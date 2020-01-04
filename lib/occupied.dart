@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:occupied_room/viewcomponents/currentmeeting.dart';
+import 'package:meetdicators/viewcomponents/currentmeeting.dart';
 
 class Occupied extends StatefulWidget {
   final events;

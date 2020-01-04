@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:occupied_room/viewcomponents/bookmeeting.dart';
-import 'package:occupied_room/viewcomponents/currentmeeting.dart';
+import 'package:meetdicators/viewcomponents/bookmeeting.dart';
+import 'package:meetdicators/viewcomponents/currentmeeting.dart';
 
 class Vacant extends StatefulWidget {
   final events;

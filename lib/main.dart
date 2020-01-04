@@ -2,8 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:occupied_room/vacant.dart';
-import 'package:occupied_room/occupied.dart';
+import 'vacant.dart';
+import 'occupied.dart';
 
 import 'google/calendar.dart';
 

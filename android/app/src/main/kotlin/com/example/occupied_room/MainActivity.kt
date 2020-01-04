@@ -1,4 +1,4 @@
-package com.example.occupied_room
+package com.example.meetdicators
 
 import androidx.annotation.NonNull;
 import io.flutter.embedding.android.FlutterActivity

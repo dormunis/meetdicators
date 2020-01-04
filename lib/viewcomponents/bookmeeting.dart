@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:intl/intl.dart';
-import 'package:occupied_room/google/calendar.dart';
+import 'package:meetdicators/google/calendar.dart';
 
 class BookMeeting extends StatefulWidget {
   final closestMeeting;
