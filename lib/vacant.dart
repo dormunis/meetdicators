@@ -33,19 +33,25 @@ class _VacantState extends State<Vacant> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Text(
-                    "Go on in",
-                    style: TextStyle(
-                        color: const Color(0xff3f515e),
-                        fontWeight: FontWeight.bold,
-                        fontSize: 72),
-                  ),
-                ],
+              Container(
+                height: MediaQuery.of(context).size.height * 0.3,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Text(
+                      "Go on in",
+                      style: TextStyle(
+                          color: const Color(0xff3f515e),
+                          fontWeight: FontWeight.bold,
+                          fontSize: 72),
+                    ),
+                  ],
+                ),
               ),
-              Container(child: bookMeetingInstance()),
+              Container(
+                  height: MediaQuery.of(context).size.height * 0.4,
+                  child: bookMeetingInstance()
+              ),
               CurrentMeeting(events: widget.events)
             ],
           ),

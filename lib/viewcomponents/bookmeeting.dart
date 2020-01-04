@@ -58,7 +58,9 @@ class _BookMeetingState extends State<BookMeeting> {
           child: Text(formattedDateTime,
               textAlign: TextAlign.center,
               style: TextStyle(
-                  color: _isRoomAvailableAtThatTime(currentDateTime) ? Colors.black : Colors.grey,
+                  color: _isRoomAvailableAtThatTime(currentDateTime)
+                      ? Colors.black
+                      : Colors.grey,
                   fontWeight: _shouldBoldenHatching(i)
                       ? FontWeight.bold
                       : FontWeight.normal)),
@@ -105,62 +107,74 @@ class _BookMeetingState extends State<BookMeeting> {
   @override
   Widget build(BuildContext context) {
     return Column(children: <Widget>[
-      Row(
-        children: <Widget>[
-          Expanded(
-            child: SizedBox(
-              child: Slider(
-                activeColor: Colors.indigoAccent,
-                min: 0.0,
-                max: _maximumMeetingTimeInMinutes,
-                divisions: _sliderDivisions.floor(),
-                label: "$_sliderLabel",
-                onChanged: (newValue) {
-                  setState(() {
-                    double snappedValue = _snapValue(newValue);
-                    DateTime wanted = _snapDateTime(DateTime.now()
-                        .add(Duration(minutes: snappedValue.round())));
-                    while (snappedValue >= _snap &&
-                        !_isRoomAvailableAtThatTime(wanted)) {
-                      snappedValue -= _snap;
-                      wanted = _snapDateTime(DateTime.now()
+      Container(
+        height: MediaQuery.of(context).size.height * 0.1,
+        child: Row(
+          children: <Widget>[
+            Expanded(
+              child: SizedBox(
+                child: Slider(
+                  activeColor: Colors.indigoAccent,
+                  min: 0.0,
+                  max: _maximumMeetingTimeInMinutes,
+                  divisions: _sliderDivisions.floor(),
+                  label: "$_sliderLabel",
+                  onChanged: (newValue) {
+                    setState(() {
+                      double snappedValue = _snapValue(newValue);
+                      DateTime wanted = _snapDateTime(DateTime.now()
                           .add(Duration(minutes: snappedValue.round())));
-                    }
-                    _sliderValue = snappedValue;
-                    _setSliderLabel(snappedValue);
-                  });
-                },
-                value: _sliderValue,
+                      while (snappedValue >= _snap &&
+                          !_isRoomAvailableAtThatTime(wanted)) {
+                        snappedValue -= _snap;
+                        wanted = _snapDateTime(DateTime.now()
+                            .add(Duration(minutes: snappedValue.round())));
+                      }
+                      _sliderValue = snappedValue;
+                      _setSliderLabel(snappedValue);
+                    });
+                  },
+                  value: _sliderValue,
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
-      Row(
-        children: _createHatching(),
+      Container(
+        height: MediaQuery.of(context).size.height * 0.05,
+        child: Row(
+          children: _createHatching(),
+        ),
       ),
-      Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
-        RaisedButton(
-          onPressed: () {
-            FutureBuilder<void>(
-              future: bookRoom(),
-              builder: (BuildContext context, AsyncSnapshot<void> snapshot) {
-                switch (snapshot.connectionState) {
-                  default:
-                    if (snapshot.hasError)
-                      return new Text('Error: ${snapshot.error}');
-                    else {
-                      return new Text('Room booked');
-                    }
-                }
-              },
-            );
-          },
-          color: const Color(0xff3f515e),
-          child: Text('BOOK ROOM', style: TextStyle(
-              color: Colors.white, fontSize: 40)),
-        )
-      ]),
+      Container(
+          height: MediaQuery.of(context).size.height * 0.15,
+          child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                RaisedButton(
+                  onPressed: () {
+                    FutureBuilder<void>(
+                      future: bookRoom(),
+                      builder:
+                          (BuildContext context, AsyncSnapshot<void> snapshot) {
+                        switch (snapshot.connectionState) {
+                          default:
+                            if (snapshot.hasError)
+                              return new Text('Error: ${snapshot.error}');
+                            else {
+                              return new Text('Room booked');
+                            }
+                        }
+                      },
+                    );
+                  },
+                  color: const Color(0xff3f515e),
+                  child: Text('BOOK ROOM',
+                      style: TextStyle(color: Colors.white, fontSize: 40)),
+                )
+              ])),
     ]);
   }
 }

@@ -79,15 +79,20 @@ class _CurrentMeetingState extends State<CurrentMeeting> {
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
-        Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
-          Text(
-            "Next meetings:",
-            style: TextStyle(
-                color: const Color(0xff3f515e),
-                fontWeight: FontWeight.bold,
-                fontSize: 42),
-          ),
-        ]),
+        Container(
+          height: MediaQuery.of(context).size.height * 0.15,
+          child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Text(
+                  "Next meetings:",
+                  style: TextStyle(
+                      color: const Color(0xff3f515e),
+                      fontWeight: FontWeight.bold,
+                      fontSize: 42),
+                ),
+              ]),
+        ),
         Container(
             color: const Color(0xff3f515e),
             width: MediaQuery.of(context).size.width,
