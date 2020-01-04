@@ -74,25 +74,6 @@ Future<List> getCalendarEvents(room) async {
   return await _parseEvents(rawEvents);
 }
 
-Future getCurrentMeeting(room) async {
-  final _calendarIds =
-      json.decode(await _readAsset('assets/google/calendar-ids.json'));
-  final _credentialsContents =
-      json.decode(await _readAsset('assets/google/.service-account.json'));
-  final _credentials =
-      new ServiceAccountCredentials.fromJson(_credentialsContents);
-  var httpClient = await clientViaServiceAccount(_credentials, _SCOPES);
-  final DateTime now = DateTime.now().toUtc();
-  final DateTime later = now.add(Duration(hours: 2));
-  var rawEvents =
-      await _upcomingEvents(httpClient, _calendarIds[room], 1, now, later);
-  List events = await _parseEvents(rawEvents);
-  if (events.isNotEmpty) {
-    return events[0]['start'].isBefore(now) ? events[0] : null;
-  }
-  return null;
-}
-
 Future<void> pushMeeting(
     String room, DateTime startTime, DateTime endTime) async {
   final _calendarIds =

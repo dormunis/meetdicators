@@ -3,6 +3,10 @@ import 'package:occupied_room/viewcomponents/bookmeeting.dart';
 import 'package:occupied_room/viewcomponents/currentmeeting.dart';
 
 class Vacant extends StatefulWidget {
+  final events;
+
+  Vacant({Key key, @required this.events}) : super(key:key);
+
   @override
   _VacantState createState() => _VacantState();
 }
@@ -36,7 +40,7 @@ class _VacantState extends State<Vacant> {
                 ],
               ),
               Container(child: bookMeeting),
-              CurrentMeeting()
+              CurrentMeeting(events: widget.events)
             ],
           ),
         )));

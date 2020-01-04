@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:occupied_room/vacant.dart';
@@ -30,30 +32,42 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
 
-  var _event;
+  var _events;
 
   Future<void> getRoomAvailability() async {
-    _event = await getCurrentMeeting('einstein');
+    _events = await getCalendarEvents('einstein');
+  }
+
+  bool isRoomOccupied() {
+    return _events.isNotEmpty && _events[0]['start'].isBefore(DateTime.now());
+  }
+
+  Future _update(Timer t) async {
+    await getRoomAvailability();
+    setState((){});
   }
 
   @override
   Widget build(BuildContext context) {
+
+    new Timer.periodic(new Duration(seconds:45), _update);
+
     return FutureBuilder<Object>(
       future: getRoomAvailability(),
       builder: (BuildContext context, AsyncSnapshot<Object> snapshot) {
         switch (snapshot.connectionState) {
           case ConnectionState.none:
             return new Text('Press button to start');
-          case ConnectionState.waiting:
-            return new Text('Awaiting results from Meeting API...');
+//          case ConnectionState.waiting:
+//            return new Text('Awaiting results from Meeting API...');
           default:
             if (snapshot.hasError)
               return new Text('Error: ${snapshot.error}');
             else {
-              if (_event != null) {
-                return Occupied(event: _event);
+              if (_events != null && isRoomOccupied()) {
+                return Occupied(events: _events);
               } else {
-                return Vacant();
+                return Vacant(events: _events);
               }
             }
         }
