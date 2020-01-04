@@ -14,7 +14,13 @@ class Vacant extends StatefulWidget {
 class _VacantState extends State<Vacant> {
   Color background = const Color(0xff00e1c9);
 
-  Widget bookMeeting = BookMeeting();
+  BookMeeting bookMeetingInstance() {
+    if (widget.events != null) {
+      return BookMeeting(closestMeeting: widget.events[0]);
+    } else {
+      return BookMeeting();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +45,7 @@ class _VacantState extends State<Vacant> {
                   ),
                 ],
               ),
-              Container(child: bookMeeting),
+              Container(child: bookMeetingInstance()),
               CurrentMeeting(events: widget.events)
             ],
           ),

@@ -4,9 +4,9 @@ import 'package:intl/intl.dart';
 import 'package:occupied_room/google/calendar.dart';
 
 class BookMeeting extends StatefulWidget {
-  BookMeeting({Key key, this.title}) : super(key: key);
+  final closestMeeting;
 
-  final String title;
+  BookMeeting({Key key, this.closestMeeting}) : super(key: key);
 
   @override
   _BookMeetingState createState() => _BookMeetingState();
@@ -14,14 +14,16 @@ class BookMeeting extends StatefulWidget {
 
 class _BookMeetingState extends State<BookMeeting> {
   static String _sliderLabelFormat = "HH:mm";
-  static double _startingNewMeetingDurationInMinutes = 30.0;
-  static double _minimumMeetingTimeInMinutes = 15.0;
-  static double _maximumMeetingTimeInMinutes = 90.0;
+
   static int _snap = 15;
+  static double _minimumMeetingTimeInMinutes = _snap * 1.0;
+  static double _maximumMeetingTimeInMinutes = _snap * 4.0;
+
+  static double _startingNewMeetingDurationInMinutes = _snap * 1.0;
   static double _sliderDivisions =
       _maximumMeetingTimeInMinutes / _minimumMeetingTimeInMinutes;
 
-  double _sliderValue = _startingNewMeetingDurationInMinutes.roundToDouble();
+  double _sliderValue = _startingNewMeetingDurationInMinutes;
   String _sliderLabel = "";
 
   void _setSliderLabel(double value) {
@@ -56,6 +58,7 @@ class _BookMeetingState extends State<BookMeeting> {
           child: Text(formattedDateTime,
               textAlign: TextAlign.center,
               style: TextStyle(
+                  color: _isRoomAvailableAtThatTime(currentDateTime) ? Colors.black : Colors.grey,
                   fontWeight: _shouldBoldenHatching(i)
                       ? FontWeight.bold
                       : FontWeight.normal)),
@@ -83,13 +86,20 @@ class _BookMeetingState extends State<BookMeeting> {
       timeToAdd = Duration(hours: 1, minutes: -(60 - datetime.minute));
     }
     DateTime rawTime = datetime.add(timeToAdd);
-    return DateTime(rawTime.year, rawTime.month, rawTime.day, rawTime.hour, rawTime.minute);
+    return DateTime(
+        rawTime.year, rawTime.month, rawTime.day, rawTime.hour, rawTime.minute);
   }
 
   Future<void> bookRoom() async {
     DateTime now = DateTime.now();
-    DateTime end = _snapDateTime(now.add(Duration(minutes: _sliderValue.round())));
+    DateTime end =
+        _snapDateTime(now.add(Duration(minutes: _sliderValue.round())));
     await pushMeeting('einstein', DateTime.now(), end);
+  }
+
+  bool _isRoomAvailableAtThatTime(DateTime wanted) {
+    return !(widget.closestMeeting != null &&
+        widget.closestMeeting['start'].isBefore(wanted));
   }
 
   @override
@@ -108,6 +118,14 @@ class _BookMeetingState extends State<BookMeeting> {
                 onChanged: (newValue) {
                   setState(() {
                     double snappedValue = _snapValue(newValue);
+                    DateTime wanted = _snapDateTime(DateTime.now()
+                        .add(Duration(minutes: snappedValue.round())));
+                    while (snappedValue >= _snap &&
+                        !_isRoomAvailableAtThatTime(wanted)) {
+                      snappedValue -= _snap;
+                      wanted = _snapDateTime(DateTime.now()
+                          .add(Duration(minutes: snappedValue.round())));
+                    }
                     _sliderValue = snappedValue;
                     _setSliderLabel(snappedValue);
                   });
@@ -132,14 +150,15 @@ class _BookMeetingState extends State<BookMeeting> {
                     if (snapshot.hasError)
                       return new Text('Error: ${snapshot.error}');
                     else {
-                      print('Room booked');
+                      return new Text('Room booked');
                     }
                 }
               },
             );
           },
           color: const Color(0xff3f515e),
-          child: Text('BOOK ROOM', style: TextStyle(fontSize: 40)),
+          child: Text('BOOK ROOM', style: TextStyle(
+              color: Colors.white, fontSize: 40)),
         )
       ]),
     ]);
