@@ -46,13 +46,16 @@ class _VacantState extends State<Vacant> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
+                    new Image(
+                      image: new AssetImage("assets/images/vacant.png")
+                    ),
                     Text(
                       title,
                       style: TextStyle(
                           color: const Color(0xff3f515e),
                           fontWeight: FontWeight.bold,
                           fontSize: 72),
-                    ),
+                    )
                   ],
                 ),
               ),

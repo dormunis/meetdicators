@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
 import 'package:meetdicators/viewcomponents/nextmeetings.dart';
 
@@ -76,6 +77,9 @@ class _OccupiedState extends State<Occupied> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
+                  new Image(
+                      image: new AssetImage("assets/images/occupied.png")
+                  ),
                   Text(
                     title,
                     style: TextStyle(
@@ -83,6 +87,7 @@ class _OccupiedState extends State<Occupied> {
                         fontWeight: FontWeight.bold,
                         fontSize: 72),
                   ),
+
                 ],
               ),
             ),

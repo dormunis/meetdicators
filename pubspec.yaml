@@ -48,6 +48,8 @@ flutter:
   assets:
     - assets/google/.service-account.json
     - assets/google/calendar-ids.json
+    - assets/images/vacant.png
+    - assets/images/occupied.png
 
   fonts:
     - family: Khand
