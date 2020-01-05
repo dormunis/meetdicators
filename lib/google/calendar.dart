@@ -68,7 +68,7 @@ Future<List> getCalendarEvents(room) async {
       new ServiceAccountCredentials.fromJson(_credentialsContents);
   var httpClient = await clientViaServiceAccount(_credentials, _SCOPES);
   final DateTime now = DateTime.now().toUtc();
-  final DateTime tomorrow = DateTime(now.year, now.month, now.day + 5).toUtc();
+  final DateTime tomorrow = DateTime(now.year, now.month, now.day + 1).toUtc();
   var rawEvents = await _upcomingEvents(
       httpClient, _calendarIds[room], _maxEventResults, now, tomorrow);
   return await _parseEvents(rawEvents);
