@@ -92,11 +92,15 @@ class _BookMeetingState extends State<BookMeeting> {
         rawTime.year, rawTime.month, rawTime.day, rawTime.hour, rawTime.minute);
   }
 
-  Future<void> bookRoom() async {
+  void bookRoom() {
     DateTime now = DateTime.now();
     DateTime end =
         _snapDateTime(now.add(Duration(minutes: _sliderValue.round())));
-    await pushMeeting('einstein', DateTime.now(), end);
+    pushMeeting('einstein', DateTime.now(), end).then((response) {
+      setState(() {});
+    }).catchError((e) {
+      debugPrint(e.toString());
+    });
   }
 
   bool _isRoomAvailableAtThatTime(DateTime wanted) {
@@ -156,20 +160,7 @@ class _BookMeetingState extends State<BookMeeting> {
               children: <Widget>[
                 RaisedButton(
                   onPressed: () {
-                    FutureBuilder<void>(
-                      future: bookRoom(),
-                      builder:
-                          (BuildContext context, AsyncSnapshot<void> snapshot) {
-                        switch (snapshot.connectionState) {
-                          default:
-                            if (snapshot.hasError)
-                              return new Text('Error: ${snapshot.error}');
-                            else {
-                              return new Text('Room booked');
-                            }
-                        }
-                      },
-                    );
+                    bookRoom();
                   },
                   color: const Color(0xff3f515e),
                   child: Text('BOOK ROOM',
