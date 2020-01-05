@@ -81,7 +81,7 @@ class _OccupiedState extends State<Occupied> {
                       flex:3,
                       child:Container(child:new Image(image: new AssetImage("assets/images/occupied.png")))),
                   Expanded(
-                      flex:4,
+                      flex:5,
                       child:Container(child:Text(
                         title,
                         style: TextStyle(
@@ -89,7 +89,7 @@ class _OccupiedState extends State<Occupied> {
                             fontWeight: FontWeight.bold,
                             fontSize: 72),
                       ))),
-                  Expanded(flex:3,child:Container())
+                  Expanded(flex:2,child:Container())
                 ],
               ),
             ),
