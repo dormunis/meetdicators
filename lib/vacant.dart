@@ -53,6 +53,7 @@ class _VacantState extends State<Vacant> {
                       flex:4,
                       child:Container(child:Text(
                       title,
+                      textAlign: TextAlign.center,
                       style: TextStyle(
                           color: const Color(0xff3f515e),
                           fontWeight: FontWeight.bold,
