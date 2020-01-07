@@ -50,7 +50,7 @@ class _VacantState extends State<Vacant> {
                       flex:3,
                       child:Container(child:new Image(image: new AssetImage("assets/images/vacant.png")))),
                     Expanded(
-                      flex:4,
+                      flex:5,
                       child:Container(child:Text(
                       title,
                       textAlign: TextAlign.center,
@@ -59,7 +59,7 @@ class _VacantState extends State<Vacant> {
                           fontWeight: FontWeight.bold,
                           fontSize: 72),
                     ))),
-                    Expanded(flex:3,child:Container())
+                    Expanded(flex:2,child:Container())
                   ],
                 ),
               ),
