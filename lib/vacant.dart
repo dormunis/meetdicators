@@ -23,7 +23,7 @@ class _VacantState extends State<Vacant> {
   final String title = _titles[Random().nextInt(_titles.length)];
 
   BookMeeting bookMeetingInstance() {
-    if (widget.events != null) {
+    if (widget.events != null && widget.events.length > 0) {
       return BookMeeting(closestMeeting: widget.events[0]);
     } else {
       return BookMeeting();
