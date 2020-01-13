@@ -52,7 +52,7 @@ class _OccupiedState extends State<Occupied> {
               Text(
                 convertEmailToName(attendee),
                 textAlign: TextAlign.center,
-                style: TextStyle(color: Colors.white, fontSize: 32),
+                style: TextStyle(color: Colors.white, fontSize: 40),
               )
             ]),
       ));
@@ -78,17 +78,17 @@ class _OccupiedState extends State<Occupied> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Expanded(
-                      flex:3,
+                      flex:2,
                       child:Container(child:new Image(image: new AssetImage("assets/images/occupied.png")))),
                   Expanded(
-                      flex:5,
+                      flex:6,
                       child:Container(child:Text(
                         title,
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             color: const Color(0xff3f515e),
                             fontWeight: FontWeight.bold,
-                            fontSize: 72),
+                            fontSize: 85),
                       ))),
                   Expanded(flex:2,child:Container())
                 ],
@@ -106,14 +106,14 @@ class _OccupiedState extends State<Occupied> {
                       style: TextStyle(
                           color: const Color(0xff3f515e),
                           fontWeight: FontWeight.bold,
-                          fontSize: 42),
+                          fontSize: 64),
                     )),
                     Expanded(
                         child: Text(
                       "${DateFormat(_dateFormat).format(_currentEvent['start'])} - ${DateFormat(_dateFormat).format(_currentEvent['end'])}",
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                          color: const Color(0xff3f515e), fontSize: 32),
+                          color: const Color(0xff3f515e), fontSize: 50),
                     )),
                   ]),
             ),

@@ -13,6 +13,7 @@ class NextMeetings extends StatefulWidget {
 
 class _NextMeetingsState extends State<NextMeetings> {
   static String _dateTimeFormat = "HH:mm";
+  final double _fontSize = 40;
 
   Row generateEventTime(event) {
     if (event.containsKey('start') && event.containsKey('end')) {
@@ -21,15 +22,15 @@ class _NextMeetingsState extends State<NextMeetings> {
           children: <Widget>[
             Text(
               DateFormat(_dateTimeFormat).format(event['start']),
-              style: TextStyle(color: Colors.white, fontSize: 24),
+              style: TextStyle(color: Colors.white, fontSize: _fontSize),
             ),
             Text(
               "-",
-              style: TextStyle(color: Colors.white, fontSize: 24),
+              style: TextStyle(color: Colors.white, fontSize: _fontSize),
             ),
             Text(
               DateFormat(_dateTimeFormat).format(event['end']),
-              style: TextStyle(color: Colors.white, fontSize: 24),
+              style: TextStyle(color: Colors.white, fontSize: _fontSize),
             )
           ]);
     } else {
@@ -48,7 +49,7 @@ class _NextMeetingsState extends State<NextMeetings> {
                   children: <Widget>[
                 Text(
                   event['title'],
-                  style: TextStyle(color: Colors.white, fontSize: 24),
+                  style: TextStyle(color: Colors.white, fontSize: _fontSize),
                 )
               ])),
           Expanded(
@@ -89,7 +90,7 @@ class _NextMeetingsState extends State<NextMeetings> {
                   style: TextStyle(
                       color: const Color(0xff3f515e),
                       fontWeight: FontWeight.bold,
-                      fontSize: 42),
+                      fontSize: 55),
                 ),
               ]),
         ),

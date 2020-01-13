@@ -58,6 +58,7 @@ class _BookMeetingState extends State<BookMeeting> {
           child: Text(formattedDateTime,
               textAlign: TextAlign.center,
               style: TextStyle(
+                  fontSize: 25,
                   color: _isRoomAvailableAtThatTime(currentDateTime)
                       ? Colors.black
                       : Colors.grey,
@@ -164,7 +165,7 @@ class _BookMeetingState extends State<BookMeeting> {
                   },
                   color: const Color(0xff3f515e),
                   child: Text('BOOK ROOM',
-                      style: TextStyle(color: Colors.white, fontSize: 36)),
+                      style: TextStyle(color: Colors.white, fontSize: 55)),
                 )
               ])),
     ]);

@@ -47,17 +47,17 @@ class _VacantState extends State<Vacant> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Expanded(
-                      flex:3,
+                      flex:2,
                       child:Container(child:new Image(image: new AssetImage("assets/images/vacant.png")))),
                     Expanded(
-                      flex:5,
+                      flex:6,
                       child:Container(child:Text(
                       title,
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           color: const Color(0xff3f515e),
                           fontWeight: FontWeight.bold,
-                          fontSize: 72),
+                          fontSize: 85),
                     ))),
                     Expanded(flex:2,child:Container())
                   ],

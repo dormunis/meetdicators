@@ -1,9 +1,11 @@
 import 'dart:async';
+import 'package:wakelock/wakelock.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'vacant.dart';
 import 'occupied.dart';
+
 
 import 'google/calendar.dart';
 
@@ -18,6 +20,7 @@ class MyApp extends StatelessWidget {
       DeviceOrientation.landscapeRight,
       DeviceOrientation.landscapeLeft,
     ]);
+    Wakelock.enable();
     return MaterialApp(
       title: 'Meetdicators',
       theme: ThemeData(fontFamily: 'Khand'),
