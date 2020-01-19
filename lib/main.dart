@@ -16,10 +16,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.landscapeRight,
-      DeviceOrientation.landscapeLeft,
-    ]);
     Wakelock.enable();
     return MaterialApp(
       title: 'Meetdicators',
@@ -35,8 +31,13 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-
+  int _retryCount;
   var _events;
+
+  @override
+  void initState() {
+    _retryCount = 0;
+  }
 
   Future<void> getRoomAvailability() async {
     _events = await getCalendarEvents('einstein');
@@ -63,11 +64,20 @@ class _HomeState extends State<Home> {
           case ConnectionState.none:
             return new Text('Press button to start');
 //          case ConnectionState.waiting:
+//            TODO: create splash screen
 //            return new Text('Awaiting results from Meeting API...');
           default:
-            if (snapshot.hasError)
-              return new Text('Error: ${snapshot.error}');
+            if (snapshot.hasError) {
+              _retryCount++;
+              if (_retryCount <= 3) {
+                _update(null);
+                return new Text('Error: ${snapshot.error}\nretrying...');
+              } else {
+                return new Text('Error: ${snapshot.error}\nwill retry again in a minute');
+              }
+            }
             else {
+              _retryCount = 0;
               if (_events != null && isRoomOccupied()) {
                 return Occupied(events: _events);
               } else {

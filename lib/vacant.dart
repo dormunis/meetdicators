@@ -42,7 +42,7 @@ class _VacantState extends State<Vacant> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               Container(
-                height: MediaQuery.of(context).size.height * 0.3,
+                height: MediaQuery.of(context).size.height * 0.25,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
@@ -64,7 +64,7 @@ class _VacantState extends State<Vacant> {
                 ),
               ),
               Container(
-                  height: MediaQuery.of(context).size.height * 0.4,
+                  height: MediaQuery.of(context).size.height * 0.45,
                   child: bookMeetingInstance()),
               NextMeetings(events: widget.events)
             ],

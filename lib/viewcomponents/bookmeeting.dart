@@ -26,6 +26,13 @@ class _BookMeetingState extends State<BookMeeting> {
   double _sliderValue = _startingNewMeetingDurationInMinutes;
   String _sliderLabel = "";
 
+  bool _isButtonDisabled;
+
+  @override
+  void initState() {
+    _isButtonDisabled = false;
+  }
+
   void _setSliderLabel(double value) {
     int minutes = (value % 60).floor();
     if (value >= 60) {
@@ -94,6 +101,8 @@ class _BookMeetingState extends State<BookMeeting> {
   }
 
   void bookRoom() {
+    _isButtonDisabled = true;
+    setState(() {});
     DateTime now = DateTime.now();
     DateTime end =
         _snapDateTime(now.add(Duration(minutes: _sliderValue.round())));
@@ -101,6 +110,7 @@ class _BookMeetingState extends State<BookMeeting> {
       setState(() {});
     }).catchError((e) {
       debugPrint(e.toString());
+      _isButtonDisabled = false;
     });
   }
 
@@ -160,11 +170,9 @@ class _BookMeetingState extends State<BookMeeting> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 RaisedButton(
-                  onPressed: () {
-                    bookRoom();
-                  },
+                  onPressed: _isButtonDisabled ? null : bookRoom,
                   color: const Color(0xff3f515e),
-                  child: Text('BOOK ROOM',
+                  child: Text(_isButtonDisabled  ? "Setting your meeting..." : 'BOOK ROOM',
                       style: TextStyle(color: Colors.white, fontSize: 55)),
                 )
               ])),

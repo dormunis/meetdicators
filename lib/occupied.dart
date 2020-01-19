@@ -45,16 +45,17 @@ class _OccupiedState extends State<Occupied> {
     List<Widget> attendees = [];
     for (var attendee in _currentEvent['attendees']) {
       attendees.add(Container(
-        child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
+        child: Flexible(
+            child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
               Text(
                 convertEmailToName(attendee),
                 textAlign: TextAlign.center,
                 style: TextStyle(color: Colors.white, fontSize: 40),
               )
-            ]),
+            ])),
       ));
     }
     return attendees;
@@ -73,16 +74,20 @@ class _OccupiedState extends State<Occupied> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             Container(
-              height: MediaQuery.of(context).size.height * 0.3,
+              height: MediaQuery.of(context).size.height * 0.25,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Expanded(
-                      flex:2,
-                      child:Container(child:new Image(image: new AssetImage("assets/images/occupied.png")))),
+                      flex: 2,
+                      child: Container(
+                          child: new Image(
+                              image: new AssetImage(
+                                  "assets/images/occupied.png")))),
                   Expanded(
-                      flex:6,
-                      child:Container(child:Text(
+                      flex: 6,
+                      child: Container(
+                          child: Text(
                         title,
                         textAlign: TextAlign.center,
                         style: TextStyle(
@@ -90,12 +95,12 @@ class _OccupiedState extends State<Occupied> {
                             fontWeight: FontWeight.bold,
                             fontSize: 85),
                       ))),
-                  Expanded(flex:2,child:Container())
+                  Expanded(flex: 2, child: Container())
                 ],
               ),
             ),
             Container(
-              height: MediaQuery.of(context).size.height * 0.25,
+              height: MediaQuery.of(context).size.height * 0.3,
               child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
