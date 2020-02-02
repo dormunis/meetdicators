@@ -37,6 +37,7 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     _retryCount = 0;
+    new Timer.periodic(new Duration(seconds:60), _update);
   }
 
   Future<void> getRoomAvailability() async {
@@ -54,9 +55,6 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-
-    new Timer.periodic(new Duration(seconds:60), _update);
-
     return FutureBuilder<Object>(
       future: getRoomAvailability(),
       builder: (BuildContext context, AsyncSnapshot<Object> snapshot) {
